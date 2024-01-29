@@ -1,0 +1,28 @@
+#!/bin/sh
+
+sysinfo=$(uname -a)
+    userinfo=$(awk -F':' '{print $1}' /etc/passwd)
+        criticalfilech=$(ls -lh /etc/)
+            checkaddr=$(ip address)
+
+read -p "Would you like to install a firewall? (y/n): " firereq
+    if [ "$firereq" == "y" ]; then
+        sudo pacman -S firewalld || sudo apt-get install firewalld
+fi
+
+# put all this 2 file
+touch sysinfo.txt
+
+echo "$sysinfo" >> sysinfo.txt
+    echo -e "\nUser Information:" >> sysinfo.txt
+        echo "$userinfo" >> sysinfo.txt
+            echo -e "\nCritical Files in /etc/:" >> sysinfo.txt
+                echo "$criticalfilech" >> sysinfo.txt
+                    echo -e "\nIP Address Information:" >> sysinfo.txt
+                            echo "$checkaddr" >> sysinfo.txt
+
+
+clear
+
+# run ./ 
+# make sure file has execution perms; check with ls -lh
